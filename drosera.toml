@@ -1,0 +1,18 @@
+ethereum_rpc = "https://rpc.hoodi.ethpandaops.io/"
+drosera_rpc = "https://relay.hoodi.drosera.io"
+eth_chain_id = 560048
+drosera_address = "0x91cB447BaFc6e0EA0F4Fe056F5a9b1F14bb06e5D"
+
+[traps.omniguard_tri_fault]
+path = "out/OmniGuardTrap.sol/OmniGuardTrap.json"
+response_contract = "0xA5C0C612aD61c3A53AC22986d1ed419bF8c15e03"
+response_function = "executeResponse(address,bytes)"
+cooldown_period_blocks = 50
+min_number_of_operators = 1
+max_number_of_operators = 3
+block_sample_size = 1  # Critical for gas efficiency
+private = true
+whitelist = ["0x0f9F0bA411245CeC1F78B2397f109c29b4eD9f31"] 
+private_trap = true
+address = "0x8aA08a0C9D63a6a52F405bC909F550E381a643c6"
+# NOTE: Drosera auto-fills 'address =' - Do not add it manually.
