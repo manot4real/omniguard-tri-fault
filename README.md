@@ -242,4 +242,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 
 ### ☎️ Contact
-- **[THEBALDKID](x.com/thebaldkid___)** 
+- **[THEBALDKID](https://x.com/TheBaldKid___)** 
