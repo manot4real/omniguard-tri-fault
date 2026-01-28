@@ -15,6 +15,20 @@ The **OmniGuard Tri-Fault Credit Monitor** is a sophisticated security trap depl
 **Current Deployment:** `0x8aA08a0C9D63a6a52F405bC909F550E381a643c6` on Hoodi Testnet  
 **Status:** **ACTIVE** - Monitoring simulated lending market in triggered fault state
 
+## 🔒 Hardened Version (v2.0)
+
+**Security Improvements:**
+1. **Robust Error Handling:** Try/catch prevents bricking on external call failures
+2. **Safe Decoding:** Length validation prevents decode reverts
+3. **Access Control:** Response contract validates Drosera executor
+4. **Efficient Encoding:** Bitmask flags replace wasteful string encoding
+5. **Safe Arithmetic:** Edge case handling for timestamp calculations
+
+**Technical Specifications (Hardened):**
+- `collect()`: ~34,500 gas (with try/catch overhead)
+- `shouldRespond()`: ~25,200 gas (with validation checks)
+- **Total:** ~59,700 gas (still within Drosera limits)
+
 ## 🎯 Core Monitoring Logic
 
 ### Three Independent Risk Vectors
@@ -62,8 +76,8 @@ graph TB
 | Contract |	Address |	Purpose |
 |----------|------------|---------------|
 | **Mock Lending Market** |	`0xf294385E5a1AC8e84147Da7565c209c8CF2882c0` | 	Simulated Aave/Compound protocol with adjustable risk parameters |
-| **OmniGuard Trap** | 	`0x8aA08a0C9D63a6a52F405bC909F550E381a643c6` | 	Core monitoring logic implementing Drosera ITrap interface |
-| **Response Contract** | 	`0xA5C0C612aD61c3A53AC22986d1ed419bF8c15e03` | 	Emergency response executor with upgradeable action framework |
+| **OmniGuard Trap** | 	`0xc379a8d919D1808b88195F1b4488F2f519D1404a` | 	Core monitoring logic implementing Drosera ITrap interface |
+| **Response Contract** | 	`0x1AA425d0F1Caa1489d7D6A3b82aAf4F426cc4531`  | 	Emergency response executor with upgradeable action framework |
 
 # 🔧 Technical Implementation
 
