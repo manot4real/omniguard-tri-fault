@@ -40,21 +40,21 @@ This logic ensures:
 ```mermaid
 graph TB
     A[Drosera Network] --> B[OmniGuardTrap.sol]
-    B --> C{collect()}
+    B --> C[collect Function]
     C --> D[MockLendingMarket.sol]
     D --> E[Utilization Data]
     D --> F[Bad Debt Data]
     D --> G[Oracle Timestamp]
     C --> H[Current Block Time]
     
-    B --> I{shouldRespond()}
+    B --> I[shouldRespond Function]
     I --> J[Risk Logic Engine]
-    J --> K[(V1 OR V2) AND V3]
+    J --> K[V1 OR V2 AND V3]
     
     B --> L[Response Trigger]
     L --> M[OmniGuardResponse.sol]
-    M --> N[emit TriFaultDetected]
-    M --> O[Emergency Actions*]
+    M --> N[Emit Event]
+    M --> O[Emergency Actions]
 ```
 
 ## Contract Addresses (Hoodi Testnet)
@@ -66,6 +66,7 @@ graph TB
 | **Response Contract** | 	`0xA5C0C612aD61c3A53AC22986d1ed419bF8c15e03` | 	Emergency response executor with upgradeable action framework |
 
 # 🔧 Technical Implementation
+
 ## Gas-Optimized Design
 
 ```// Efficient data packing in collect()
@@ -77,9 +78,7 @@ bool shouldTrigger = (utilizationCritical || badDebtCritical) && oracleStale;
 
 **Performance Metrics:**
 - `collect()`: 33,830 gas (3 external calls + timestamp)
-
 - `shouldRespond()`: 24,766 gas (complex pure logic with decoding)
-
 - **Total per evaluation:** ~58,596 gas (within Drosera relay limits)
 
 ## Drosera Network Configuration
@@ -100,23 +99,19 @@ private = true
 ## Active Fault State (Triggered for Testing)
 
 | Parameter | 	Current Value | 	Threshold | 	Status |
+|-----------|-----------------|-------------------|------------|
 | Utilization Ratio | 	96% | 	95% | 	**❌ EXCEEDED** | 
 | Bad Debt | 	1,500 ETH | 	1,000 ETH | 	**❌ EXCEEDED** | 
 | Oracle Age | 	2+ hours | 	1 hour | **❌ STALE** | 
+
 **Result:** All three fault conditions are met → Trap should be actively triggering responses via Drosera operators.
 
 ## Expected Response Flow
-
 1. **Drosera Operators** periodically call `collect()` (every ~50 blocks)
-
 2. **Risk Evaluation** runs `shouldRespond()` with collected data
-
 3. **Alert Generation:** When `(TRUE OR TRUE) AND TRUE = TRUE`
-
 4. **Response Execution:** Operators call `executeResponse()` with context data
-
 5. **Event Emission:** `TriFaultDetected` event with trigger details
-
 
 # 🛠️ Development & Deployment
 
@@ -155,58 +150,42 @@ PRIVATE_KEY="0x..."  # Testnet deployer wallet
 ## Phase 1: Hoodi Testnet (Current)
 
 - Three-vector monitoring logic
-
 - Gas optimization testing
-
 - Response contract framework
-
 - Operator response verification
 
 ## Phase 2: Mainnet Preparation
 
 - Gas limit stress testing
-
 - Response contract upgrades
-
 - Multi-protocol support (Aave V3, Compound V3, Euler)
-
 - Governance integration for automated responses
 
 ## Phase 3: Enterprise Features
 
 - SLA monitoring dashboards
-
 - Cross-protocol correlation engine
-
 - Machine learning anomaly detection
-
 - Insurance fund triggering mechanism
 
 # 🎓 Learning Resources
 
 ## Key Concepts Demonstrated
-
 1. **Multi-Vector Risk Assessment -** Correlated risk factor monitoring
-
 2. **Gas-Aware Smart Contract Design -** Optimization for relay networks
-
 3. **Oracle Security Patterns -** Timeliness as a security primitive
-
 4. **Emergency Response Frameworks -** Graduated response protocols
 
 ## Real-World Analogues
-
 - **Aave V3:** `HealthFactor` monitoring + `Oracle` freshness
-
 - **Compound V3:** `Utilization` caps + `ReserveFactor` thresholds
-
 - **MakerDAO:** `CollateralizationRatio` + `Oracle` security modules
 
 # 🔍 Verification & Monitoring
 
 ## Live Dashboard
-**[Drosera Trap Status:](https://app.drosera.network/traps/0x8aA08a0C9D63a6a52F405bC909F550E381a643c6)**
-**[Hoodi Explorer:](https://hoodi.etherscan.io)**
+- **[Drosera Trap Status:](https://app.drosera.network/traps/0x8aA08a0C9D63a6a52F405bC909F550E381a643c6)**
+- **[Hoodi Explorer:](https://hoodi.etherscan.io)**
 
 ## Response Verification
 ```
@@ -223,17 +202,13 @@ cast logs --from-block 2122264 \
 ## Technical Limitations
 
 1. **Gas Constraints:** 3 external calls approach Drosera relay limits
-
 2. **Timestamp Precision:** Block timestamps have ~12-second granularity
-
 3. **Oracle Dependency:** Assumes oracle provides accurate timestamps
 
 ## Security Assumptions
 
 1. **Protocol Integrity:** Mock contract accurately simulates real protocol behavior
-
 2. **Operator Honesty:** Drosera network operators execute faithfully
-
 3. **Network Stability:** Hoodi testnet maintains consistent block production
 
 
@@ -241,17 +216,13 @@ cast logs --from-block 2122264 \
 This project demonstrates advanced Drosera trap patterns. Contributions welcome:
 
 1. **Gas Optimization:** Reduce `collect()` and `shouldRespond()` gas costs
-
 2. **Additional Vectors:** Implement TVL monitoring, whale position tracking
-
 3. **Cross-Protocol Support:** Extend to Morpho Blue, Euler V2, Spark Protocol
 
 # 🙏 Acknowledgments
 
 - **Drosera Network** for the decentralized monitoring infrastructure
-
 - **Hoodi Testnet** for providing a robust testing environment
-
 - **OpenZeppelin** for battle-tested contract libraries
 
 
