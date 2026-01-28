@@ -228,3 +228,18 @@ This project demonstrates advanced Drosera trap patterns. Contributions welcome:
 **⚠️ DISCLAIMER:** This is a testnet deployment for educational purposes. Mainnet deployments require extensive security auditing, gas optimization, and risk assessment.
 
 Last Updated: Block 2122271 | Trap Status: ACTIVE | Fault State: TRIGGERED
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+**Important Legal Notes for Blockchain Projects:**
+1. **Smart Contract Risks:** The software is provided "as is" without warranty. Smart contracts carry inherent risks including but not limited to financial loss, bugs, and vulnerabilities.
+2. **No Financial Advice:** This software monitors DeFi protocols but does not constitute financial advice, investment recommendations, or guarantees of security.
+3. **Regulatory Compliance:** Users are responsible for ensuring compliance with local laws and regulations when deploying or using this software.
+4. **Third-Party Dependencies:** This project uses OpenZeppelin contracts (MIT) and Drosera interfaces. Refer to their respective licenses for complete terms.
+
+
+
+
+*THEBALDKID* 
