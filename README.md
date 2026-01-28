@@ -193,7 +193,6 @@ PRIVATE_KEY="0x..."  # Testnet deployer wallet
 cast logs --from-block 2122264 \
   --address 0xA5C0C612aD61c3A53AC22986d1ed419bF8c15e03 \
   --rpc-url $HOODI_RPC_URL
-222
 ```
 
 
